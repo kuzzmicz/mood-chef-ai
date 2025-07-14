@@ -1,5 +1,6 @@
 import './App.css';
 import {React, useState} from 'react';
+
 function App() {
   const [text, setText] = useState('');
   const [recipe, setRecipe] = useState('');
@@ -22,23 +23,29 @@ function App() {
   setLoading(false);
 }
   return (
-    <div className="App">
-      <h1>Mood Chef AI</h1>
-     <h2>Mood-Based Recipe Suggester</h2>
+    <div className="App min-h-screen bg-gray-300 flex flex-col items-center justify-center p-4">
+      <div className="bg-gray-100 p-4 rounded-md">
+        
+      <h1 className="text-3xl font-bold underline mb-4">👨‍🍳 Mood Chef AI 🤖</h1>
+     <h2 className="text-xl font-bold mb-3">Mood-Based Recipe Suggester</h2>
      
      <input type ="text" 
             value = {text}
             onChange={(e)=> setText(e.target.value)}
-            placeholder="Type your sentence..."/>
+            placeholder="Type your sentence..."
+            className="w-full max-w-md p-2 mb-4 border-rounded"/>
 
       <button onClick={handleSubmit}
-              disabled={loading}>{loading ? 'Analyzing...' : "Get a recommendation"} </button>
+              disabled={loading}
+              className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 disabled:bg-gray-400">
+                {loading ? 'Analyzing...' : "Get a recommendation"} </button>
                 {recipe && (
-                  <div><h2>Recommendation:</h2>
+                  <div className="mt-4 p-4 bg-white rounded shadow">
+                    <h2 className="text-xl font-semibold">Recommendation:</h2>
                   <p>{recipe}</p>
                   </div>
                 )}
-    </div>
+    </div></div>
   );
 }
 

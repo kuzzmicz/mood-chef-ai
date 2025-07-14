@@ -11,6 +11,7 @@ recipes = {
     'neutral': 'Caesar salad'
 }
 
+#POST ANALYZE
 @app.route('/analyze', methods=['POST'])
 def analyze_mood():
     data = request.get_json()
