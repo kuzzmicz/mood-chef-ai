@@ -15,7 +15,7 @@ recipes = {
                  {'name':'Omelette', 'image': 'omelette.jpg'}],
     'neutral': [{'name': 'Cheese Crepes', 'image':'cheese-crepes.jpg'},
                 {'name': 'Chocolate Cupcakes', 'image':'chocolate-cupcakes.jpg'},
-                {'name': 'Cheesy Spinach Quiche', 'image':'cheese-spinach-quiche.jpg'}]
+                {'name': 'Cheesy Spinach Quiche', 'image':'cheesy-spinach-quiche.jpg'}]
 }
 
 #POST ANALYZE
