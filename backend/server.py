@@ -1,17 +1,21 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from textblob import TextBlob
-
+import random
 app = Flask(__name__)
 CORS(app)
 
+
 recipes = {
-    'positive': 
-    {'name':'Apple pie', 'image':'apple-pie.jpg'}, 
-    'negative': 
-    {'name':'Hot chocolate', 'image': 'hot-chocolate.jpg'},
-    'neutral': 
-    {'name':'Caesar salad', 'image':'caesar-salad.jpg'}
+    'positive': [{'name':'Apple Pie', 'image':'apple-pie.jpg'},
+                 {'name':'Chicken Kiev', 'image':'chicken-kiev.jpg'},
+                 {'name':'Kyiv Cake', 'image':'kyiv-cake.jpg'}], 
+    'negative': [{'name':'Caesar Salad', 'image':'caesar-salad.jpg'},
+                 {'name':'Hot Chocolate', 'image': 'hot-chocolate.jpg'},
+                 {'name':'Omelette', 'image': 'omelette.jpg'}],
+    'neutral': [{'name': 'Cheese Crepes', 'image':'cheese-crepes.jpg'},
+                {'name': 'Chocolate Cupcakes', 'image':'chocolate-cupcakes.jpg'},
+                {'name': 'Cheesy Spinach Quiche', 'image':'cheese-spinach-quiche.jpg'}]
 }
 
 #POST ANALYZE
@@ -34,8 +38,7 @@ def analyze_mood():
         mood = 'neutral'
         
 
-    recipe = recipes.get(mood, 'Nothing was found')
-
+    recipe = random.choice(recipes.get(mood, ['Nothing was found']))
     return jsonify({'recipe': recipe['name'],
                     'mood': mood,
                     'image':f'/static/images/{recipe['image']}'})
