@@ -6,9 +6,12 @@ app = Flask(__name__)
 CORS(app)
 
 recipes = {
-    'positive': 'Apple pie', 
-    'negative': 'Hot chocolate',
-    'neutral': 'Caesar salad'
+    'positive': 
+    {'name':'Apple pie', 'image':'apple-pie.jpg'}, 
+    'negative': 
+    {'name':'Hot chocolate', 'image': 'hot-chocolate.jpg'},
+    'neutral': 
+    {'name':'Caesar salad', 'image':'caesar-salad.jpg'}
 }
 
 #POST ANALYZE
@@ -22,17 +25,20 @@ def analyze_mood():
     
     blob = TextBlob(text)
     polarity = blob.sentiment.polarity
-
+    
     if polarity > 0:
         mood = 'positive'
     elif polarity < 0:
         mood = 'negative'
     else: 
         mood = 'neutral'
+        
 
     recipe = recipes.get(mood, 'Nothing was found')
 
-    return jsonify({'recipe': recipe})
+    return jsonify({'recipe': recipe['name'],
+                    'mood': mood,
+                    'image':f'/static/images/{recipe['image']}'})
 
 if __name__ == '__main__':
     app.run(debug=True)

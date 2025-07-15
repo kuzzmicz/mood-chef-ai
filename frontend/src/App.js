@@ -1,11 +1,14 @@
 import './App.css';
 import {React, useState} from 'react';
-
+import { motion } from 'framer-motion';
+import {FaSmileBeam, FaMeh, FaFrown} from 'react-icons/fa';
 function App() {
   const [text, setText] = useState('');
   const [recipe, setRecipe] = useState('');
+  const [mood, setMood] = useState('');
   const [loading, setLoading] = useState(false);
-
+  const [image, setImage] = useState('');
+  
   const handleSubmit = async() => {
   setLoading(true);
    try{
@@ -17,6 +20,8 @@ function App() {
   );
   const data = await response.json(); 
   setRecipe(data.recipe);
+  setMood(data.mood);
+  setImage(data.image);
    } catch (error) {
   setRecipe("Error!")
   }
@@ -40,10 +45,25 @@ function App() {
               className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 disabled:bg-gray-400">
                 {loading ? 'Analyzing...' : "Get a recommendation"} </button>
                 {recipe && (
-                  <div className="mt-4 p-4 bg-white rounded shadow">
+                  <motion.div 
+                   initial={{opacity: 0, y: 20}}
+                   animate = {{opacity: 1, y: 0}}
+                   transition= {{duration: 0.5}}
+                  className="mt-4 p-4 bg-white rounded shadow">
                     <h2 className="text-xl font-semibold">Recommendation:</h2>
-                  <p>{recipe}</p>
-                  </div>
+                    {image && 
+                    (<img src={`http://localhost:5000${image}`} 
+                      alt={recipe}
+                      className="w-full h-48 object-cover rounded mb-4"/>
+                    
+                    )}
+                  <p className="text-m font-semibold">{recipe}</p>
+                  {mood && <p className = "flex items-center">Mood: {mood}
+                    {mood==='positive'? <FaSmileBeam className='ml-2 text-green-500'/> :
+                    mood === 'negative' ? <FaFrown className='ml-2 text-red-500'/> :
+                    <FaMeh className='ml-2 text-yellow-500'/>}
+                    </p>}
+                  </motion.div>
                 )}
     </div></div>
   );
